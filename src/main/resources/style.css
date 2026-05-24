@@ -1,0 +1,35 @@
+/* Ana arkaplan ve genel yazı tipi ayarı */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: #F4F7F6; /* Hastane/Klinik tarzı ferah bir arkaplan */
+}
+
+/* Sol taraftaki kontrol paneli için beyaz kutu ve hafif gölge efekti */
+.panel-box {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #DDE2E5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+/* Başlık yazıları için stil */
+.baslik-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+/* Aksiyon butonu (Grafiğe Ekle) tasarımı */
+.action-button {
+    -fx-background-color: #0078D7; /* Tıbbi uygulamalara uygun güven veren mavi */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* Butonun üzerine fare ile gelince (hover) renginin koyulaşması */
+.action-button:hover {
+    -fx-background-color: #005A9E;
+}
