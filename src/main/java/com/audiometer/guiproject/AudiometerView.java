@@ -41,11 +41,11 @@ public class AudiometerView {
 
         portBox = new ComboBox<>();
         portBox.getItems().addAll("COM1", "COM2", "COM3");
-        portBox.setPromptText("Port Seçin");
+        portBox.setPromptText("Select Port");
 
-        btnConnect = new Button("Bağlan");
+        btnConnect = new Button("Connect");
 
-        topPanel.getChildren().addAll(new Label("Seri Port:"), portBox, btnConnect);
+        topPanel.getChildren().addAll(new Label("Serial Port:"), portBox, btnConnect);
         root.setTop(topPanel);
     }
 
@@ -55,22 +55,22 @@ public class AudiometerView {
         leftPanel.getStyleClass().add("panel-box");
         leftPanel.setPrefWidth(220);
 
-        Label lblControl = new Label("Test Kontrolleri");
+        Label lblControl = new Label("Test Controls");
         lblControl.getStyleClass().add("baslik-label");
 
         ToggleGroup earGroup = new ToggleGroup();
-        rbRight = new RadioButton("Sağ Kulak");
-        rbLeft = new RadioButton("Sol Kulak");
+        rbRight = new RadioButton("Right Ear");
+        rbLeft = new RadioButton("Left Ear");
         rbRight.setToggleGroup(earGroup);
         rbLeft.setToggleGroup(earGroup);
         rbRight.setSelected(true);
 
-        Label lblFreq = new Label("Frekans (Hz):");
+        Label lblFreq = new Label("Frequency (Hz):");
         freqBox = new ComboBox<>();
         freqBox.getItems().addAll(250, 500, 1000, 2000, 4000, 8000);
         freqBox.setValue(1000);
 
-        Label lblDb = new Label("Ses Şiddeti (dB):");
+        Label lblDb = new Label("Intensity (dB):");
         dbBox = new ComboBox<>();
         for (int i = -10; i <= 120; i += 5) {
             dbBox.getItems().add(i);
@@ -79,15 +79,15 @@ public class AudiometerView {
 
         // Hughson-Westlake Hızlı Butonları
         HBox hwBox = new HBox(10);
-        btnDown10 = new Button("-10 dB (Duydu)");
+        btnDown10 = new Button("-10 dB (Response)");
         btnDown10.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;"); // Kırmızı uyarıcı
 
-        btnUp5 = new Button("+5 dB (Duymadı)");
+        btnUp5 = new Button("+5 dB (No Response)");
         btnUp5.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;"); // Mavi uyarıcı
 
         hwBox.getChildren().addAll(btnDown10, btnUp5);
 
-        btnPlot = new Button("Grafiğe Ekle (Test)");
+        btnPlot = new Button("Send Signal");
         btnPlot.getStyleClass().add("action-button");
 
         leftPanel.getChildren().addAll(lblControl, rbRight, rbLeft, new Separator(), lblFreq, freqBox, lblDb, dbBox, hwBox, btnPlot);
@@ -96,10 +96,10 @@ public class AudiometerView {
 
     private void createChart() {
         NumberAxis xAxis = new NumberAxis(125, 8000, 1000);
-        xAxis.setLabel("Frekans (Hz)");
+        xAxis.setLabel("Frequency (Hz)");
 
         NumberAxis yAxis = new NumberAxis(-120, 10, 10);
-        yAxis.setLabel("İşitme Eşiği (dB)");
+        yAxis.setLabel("Hearing Threshold (dB)");
 
         // Ters Y ekseni hilesi
         yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis) {
@@ -110,14 +110,14 @@ public class AudiometerView {
         });
 
         audiogramChart = new LineChart<>(xAxis, yAxis);
-        audiogramChart.setTitle("Klinik Odyogram");
+        audiogramChart.setTitle("Clinical Audiogram");
         audiogramChart.setAnimated(false);
 
         rightEarSeries = new XYChart.Series<>();
-        rightEarSeries.setName("Sağ Kulak (Kırmızı O)");
+        rightEarSeries.setName("Right Ear (Red O)");
 
         leftEarSeries = new XYChart.Series<>();
-        leftEarSeries.setName("Sol Kulak (Mavi X)");
+        leftEarSeries.setName("Left Ear (Blue X)");
 
         audiogramChart.getData().addAll(rightEarSeries, leftEarSeries);
         root.setCenter(audiogramChart);

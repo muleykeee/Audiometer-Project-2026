@@ -31,7 +31,7 @@ public class AudiometerController {
         XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(currentFreq, -currentDb);
 
         Label marker = new Label(isRightEar ? "O" : "X");
-        marker.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: " + (isRightEar ? "red;" : "blue;"));
+        marker.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;  -fx-text-fill: " + (isRightEar ? "red;" : "blue;"));
         dataPoint.setNode(marker);
 
         if (isRightEar) {

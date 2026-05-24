@@ -33,3 +33,22 @@
 .action-button:hover {
     -fx-background-color: #005A9E;
 }
+
+/* Grafikteki noktaların etrafındaki varsayılan dikdörtgen/daire arkaplanlarını şeffaf yap */
+.chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Sağ Kulak (Seri 0) Çizgi Rengi: Kırmızı ve Düz */
+.default-color0.chart-series-line {
+    -fx-stroke: red;
+    -fx-stroke-width: 2px;
+}
+
+/* Sol Kulak (Seri 1) Çizgi Rengi: Mavi ve Kesik Çizgili */
+.default-color1.chart-series-line {
+    -fx-stroke: blue;
+    -fx-stroke-width: 2px;
+    -fx-stroke-dash-array: 5 5; /* Bu kod çizgiyi nokta nokta kesikli yapar */
+}
