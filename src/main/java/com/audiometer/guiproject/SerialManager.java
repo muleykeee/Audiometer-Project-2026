@@ -1,9 +1,14 @@
 package com.audiometer.guiproject;
-
 import com.fazecast.jSerialComm.SerialPort;
 
 public class SerialManager {
     private SerialPort activePort; //Variable to hold the hardware port we will connect to
+    // Reference to the main UI controller
+    private AudiometerController controller;
+
+    public void setController(AudiometerController controller) {
+        this.controller = controller;
+    }
 
     //Find all serial ports currently connected to the computer
     public String[] getAvailablePorts() {
@@ -66,18 +71,18 @@ public class SerialManager {
         }
     }
 
-    //Start an asynchronous listener that constantly waits for incoming data
+    //Starts an asynchronous listener that constantly waits for incoming data.
     public void startListening() {
         if (activePort == null || !activePort.isOpen()) {
             System.out.println("Cannot listen. Port is not open.");
             return;
         }
 
-        //Add a data listener to the active serial port
+        // Add a data listener to the active serial port
         activePort.addDataListener(new com.fazecast.jSerialComm.SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
-                //Trigger the listener whenever data is available to be read
+                // Trigger this listener whenever data is available to be read
                 return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
             }
 
@@ -92,13 +97,20 @@ public class SerialManager {
                 int numRead = activePort.readBytes(readBuffer, readBuffer.length);
                 
                 if (numRead > 0) {
-                    // Convert raw bytes to a str
+                    // Convert raw bytes into a readable String
                     String receivedData = new String(readBuffer, 0, numRead).trim();
                     System.out.println("Received raw data from serial: " + receivedData);
 
                     // Check if the patient pressed the response button
                     if (receivedData.contains("RESPONSE")) {
                         System.out.println("Patient responded! Triggering UI graph update...");
+                        
+                        // Safely call the UI method from the background thread
+                        if (controller != null) {
+                            javafx.application.Platform.runLater(() -> {
+                                controller.handlePlotAction();
+                            });
+                        }
                     }
                 }
             }

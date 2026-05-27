@@ -6,9 +6,12 @@ import javafx.scene.control.Label;
 public class AudiometerController {
 
     private AudiometerView view;
+    private SerialManager serialManager; // Hardware manager
 
     public AudiometerController(AudiometerView view) {
         this.view = view;
+        this.serialManager = new SerialManager();
+        this.serialManager.setController(this);
         setupEventHandlers();
     }
 
@@ -22,7 +25,7 @@ public class AudiometerController {
         view.btnUp5.setOnAction(event -> applyHughsonWestlake(5));
     }
 
-    private void handlePlotAction() {
+    public void handlePlotAction() {
         int currentFreq = view.freqBox.getValue();
         int currentDb = view.dbBox.getValue();
         boolean isRightEar = view.rbRight.isSelected();
