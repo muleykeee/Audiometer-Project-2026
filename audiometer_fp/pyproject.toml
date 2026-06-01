@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audiometer-fp"
+version = "1.0.0"
+description = "Functional-programming core for the Ankara University Audiometer System (YMH 334 deliverable)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "YMH Team"}]
+dependencies = []
+
+[project.optional-dependencies]
+serial = ["pyserial>=3.5"]
+test = ["pytest>=8.0", "hypothesis>=6.100"]
+
+[project.scripts]
+audiometer-fp = "audiometer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["audiometer*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
