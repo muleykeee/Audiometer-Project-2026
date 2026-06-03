@@ -26,7 +26,8 @@ public class SerialManager {
     //Connect to the port selected from the GUI and configure parameters
     public boolean connect(String portName) {
         // Instantiate the port object based on the selected name
-        activePort = SerialPort.getCommPort(portName);
+        activePort = SerialPort.getCommPort(portName.trim());
+        System.out.println("tried.");
         
         // Critical Communication Settings (Must match Python/Hardware settings exactly)
         activePort.setBaudRate(9600); // Communication speed
