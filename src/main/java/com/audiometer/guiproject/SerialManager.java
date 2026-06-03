@@ -34,6 +34,7 @@ public class SerialManager {
         activePort.setNumDataBits(8);
         activePort.setNumStopBits(SerialPort.ONE_STOP_BIT);
         activePort.setParity(SerialPort.NO_PARITY);
+        activePort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         
         // Attempt to open the port
         if (activePort.openPort()) {
